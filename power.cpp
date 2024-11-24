@@ -18,6 +18,14 @@ int main()
 {
     int a,b;
     cin>>a>>b;
-    int x=pow(a,b);
-    cout<<x<<endl;
+    int x=pow(a,abs(b));
+    if(b>=0)
+    {
+        cout<<x<<endl;
+    }
+    else
+    {
+        cout<<1.0/x<<endl;
+    }
+    
 }
