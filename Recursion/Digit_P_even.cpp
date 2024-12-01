@@ -1,33 +1,64 @@
 #include<bits/stdc++.h>
 using namespace std;
-struct evenodd
+struct Counting
 {
+    int dig=0;
     int even=0;
-    int digit=0;
 };
-typedef struct evenodd evvodd;
-evenodd countE_Digit(int n)
+int countDigit(int n)
 {
-    if(n==0)
+    if(n>=0 && n<=9)
     {
-        return {0,0};
+        return 1;
     }
     else
     {
-        int me=1;
-        int me2;
+        int m=1;
+        int frnd=countDigit(n/10);
+        return m+frnd;
+    }
+}
+int countEvenDigit(int n)
+{
+    if(n>=0 && n<=9)
+    {
+        return (n % 2 == 0) ? 1 : 0;
+    }
+    else
+    {
+        int m;
         if((n%10)%2==0)
         {
-            me2=1;
+            m=1;
         }
         else
         {
-            me2=0;
+            m=0;
         }
-        evenodd frnd=countE_Digit(n/10);
-        evenodd p = {0, 0};
-        p.digit=p.digit+me+frnd.digit;
-        p.even=p.even+me2+frnd.even;
+        int frnd=countEvenDigit(n/10);
+        return m+frnd;
+    }
+}
+Counting countDE(int n)
+{
+    if(n>=0 && n<=9)
+    {
+        if(n%2==0)
+        {
+            return {1,1};
+        }
+        else
+        {
+            return {1,0};
+        }
+    }
+    else
+    {
+        int m=((n%10)%2==0)?1:0;
+        Counting frnd=countDE(n/10);
+        Counting p;
+        p.dig=p.dig+1+frnd.dig;
+        p.even=p.even+m+frnd.even;
         return p;
     }
 }
@@ -35,9 +66,10 @@ int main()
 {
     int n;
     cin>>n;
-    evenodd x=countE_Digit(n);
-    cout<<"Total digit : "<<x.digit<<endl;
-    cout<<"Total Even digit : "<<x.even<<endl;
-
-    return 0;
+    int x=countDigit(n);
+    int y=countEvenDigit(n);
+    Counting z=countDE(n);
+    cout<<"Digits : "<<x<<endl;
+    cout<<"Even Digits : "<<y<<endl;
+    cout<<"**Dig = "<<z.dig<<" **Even = "<<z.even<<endl;
 }
