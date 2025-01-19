@@ -1,32 +1,70 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-#define infinity INT_MAX
+#define infinty INT_MAX
+
 int main()
 {
-    int n,a,b,c;
-    cin>>n>>a>>b>>c;
-    int arr[n+1];
-    arr[0]=0;
-    for(int i=1;i<=n;i++)
+    cout << "Enter total amount : ";
+    int n;
+    cin >> n;
+    int arr[n + 1];
+    for (int i = 0; i <= n; i++)
     {
-        int A=infinity,B=infinity,C=infinity;
-            if(i>=a)
-            {
-                int x=i-a;
-                A=arr[x]+1;
-            }
-            if(i>=b)
-            {
-                int x=i-b;
-                B=arr[x]+1;
-            }
-            if(i>=c)
-            {
-                int x=i-c;
-                C=arr[x]+1;
-            }
-            arr[i]=min(min(A,B),C);
+        arr[i] = infinty;
     }
-    cout<<arr[n]<<endl;
+    int srr[n + 1];
 
+    arr[0] = 0;
+    srr[0] = 0;
+
+    cout << "Enter total number of coins : ";
+    int c;
+    cin >> c;
+    cout << "Enter the coins : ";
+    int coin[c];
+    for (int i = 0; i < c; i++)
+    {
+        cin >> coin[i];
+    }
+    sort(coin, coin + c);
+    for (int i = 1; i <= n; i++)
+    {
+        int Min = (arr[i - coin[0]]) + 1;
+        int idx = coin[0];
+        for (int j = 0; j < c; j++)
+        {
+            if ((arr[i - coin[j]] + 1) < Min)
+            {
+                Min = arr[i - coin[j]] + 1;
+                idx = coin[j];
+            }
+        }
+        arr[i] = Min;
+        srr[i] = idx;
+    }
+
+    cout << "\n\nTotal " << arr[n] << " coins needed.\n" << endl;
+
+    cout<<"The Coins are : ";
+    int i=n;
+    while(i!=0)
+    {
+        cout<<srr[n]<<" ";
+        i=i-srr[i];
+    }
+
+    cout<<"\n\n";
+    cout<<"Cache memory for coins : ";
+    for (int i = 0; i <=n; i++)
+    {
+        cout<< srr[i]<<" ";
+    }
+    cout<<endl;
+    cout<<"Cache memory for choosen coins road : ";
+    for (int i = 0; i <=n; i++)
+    {
+        cout<< arr[i]<<" ";
+    }
+
+    return 0;
 }
