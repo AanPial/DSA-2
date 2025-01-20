@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define infinty INT_MAX
+#define infinity INT_MAX
 
 int main()
 {
@@ -10,9 +10,9 @@ int main()
     int arr[n + 1];
     for (int i = 0; i <= n; i++)
     {
-        arr[i] = infinty;
+        arr[i] = infinity;
     }
-    int srr[n + 1];
+    int srr[n + 1];///stores the paths
 
     arr[0] = 0;
     srr[0] = 0;
@@ -29,11 +29,11 @@ int main()
     sort(coin, coin + c);
     for (int i = 1; i <= n; i++)
     {
-        int Min = (arr[i - coin[0]]) + 1;
-        int idx = coin[0];
+        int Min = infinity;
+        int idx = -1;
         for (int j = 0; j < c; j++)
         {
-            if ((arr[i - coin[j]] + 1) < Min)
+            if (i >= coin[j] && (arr[i - coin[j]] + 1) < Min)
             {
                 Min = arr[i - coin[j]] + 1;
                 idx = coin[j];
@@ -49,18 +49,18 @@ int main()
     int i=n;
     while(i!=0)
     {
-        cout<<srr[n]<<" ";
+        cout<<srr[i]<<" ";
         i=i-srr[i];
     }
 
     cout<<"\n\n";
-    cout<<"Cache memory for coins : ";
+    cout<<"Cache memory for choosen coins road : ";
     for (int i = 0; i <=n; i++)
     {
         cout<< srr[i]<<" ";
     }
     cout<<endl;
-    cout<<"Cache memory for choosen coins road : ";
+    cout<<"Cache memory for coins : ";
     for (int i = 0; i <=n; i++)
     {
         cout<< arr[i]<<" ";
