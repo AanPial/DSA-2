@@ -7,15 +7,15 @@ int main()
     cout << "Enter total amount : ";
     int n;
     cin >> n;
-    int arr[n + 1];
+    int dpTable[n + 1];
     for (int i = 0; i <= n; i++)
     {
-        arr[i] = infinity;
+        dpTable[i] = infinity;
     }
-    int srr[n + 1];///stores the paths
+    int parent[n + 1];///stores the paths
 
-    arr[0] = 0;
-    srr[0] = 0;
+    dpTable[0] = 0;
+    parent[0] = 0;
 
     cout << "Enter total number of coins : ";
     int c;
@@ -33,37 +33,37 @@ int main()
         int idx = -1;
         for (int j = 0; j < c; j++)
         {
-            if (i >= coin[j] && (arr[i - coin[j]] + 1) < Min)
+            if (i >= coin[j] && (dpTable[i - coin[j]] + 1) < Min)
             {
-                Min = arr[i - coin[j]] + 1;
+                Min = dpTable[i - coin[j]] + 1;
                 idx = coin[j];
             }
         }
-        arr[i] = Min;
-        srr[i] = idx;
+        dpTable[i] = Min;
+        parent[i] = idx;
     }
 
-    cout << "\n\nTotal " << arr[n] << " coins needed.\n" << endl;
+    cout << "\n\nTotal " << dpTable[n] << " coins needed.\n" << endl;
 
     cout<<"The Coins are : ";
     int i=n;
     while(i!=0)
     {
-        cout<<srr[i]<<" ";
-        i=i-srr[i];
+        cout<<parent[i]<<" ";
+        i=i-parent[i];
     }
 
     cout<<"\n\n";
     cout<<"Cache memory for choosen coins road : ";
     for (int i = 0; i <=n; i++)
     {
-        cout<< srr[i]<<" ";
+        cout<< parent[i]<<" ";
     }
     cout<<endl;
     cout<<"Cache memory for coins : ";
     for (int i = 0; i <=n; i++)
     {
-        cout<< arr[i]<<" ";
+        cout<< dpTable[i]<<" ";
     }
 
     return 0;
